@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import logo from '/logo.png' // no need to write the hole path because it is in the public folder
 import { FiPhoneCall } from "react-icons/fi";
 
 
 const Navbar = () => {
+  const [isSticky, setSticky] = useState(false);
+
+  //handle scroll functions
+  useEffect( () => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      if (offset > 0){
+        setSticky(true);
+      } else{
+        setSticky(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return ()=> {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, [])
+
   const navItems = (
     <>
       <li>
