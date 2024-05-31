@@ -4,6 +4,10 @@ body {
   font-family: "inter", sans-serif;
 }
 
+header{
+  z-index: 10001 !important; /* This is to make sure the header is always on top*/
+}
+
 .section-container{
   @apply max-w-screen-2xl container mx-auto xl:px-24 px-4;
 }
