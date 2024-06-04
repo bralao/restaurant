@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import Cards from '../../components/Cards';
 
 const SpecialDishes = () => {
 
@@ -11,7 +12,9 @@ const SpecialDishes = () => {
     fetch("/menu.json")
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        const specials = data.filter((item) => item.category === "popular") // filter only the popular items
+        // console.log(specials)
+        setRecipes(specials) // set the state with the popular items
       })
   },[])
 
@@ -59,30 +62,11 @@ const SpecialDishes = () => {
       </div>
 
       <Slider {...settings}>
-        <div>
-          <h3>1</h3>
-        </div>
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-        <div>
-          <h3>6</h3>
-        </div>
-        <div>
-          <h3>7</h3>
-        </div>
-        <div>
-          <h3>8</h3>
-        </div>
+        {
+          recipes.map((item, i) => (
+            <Cards key={i} item={item}/> // pass the item to the Cards component
+          ))
+        }
       </Slider>
     </div>
   )
