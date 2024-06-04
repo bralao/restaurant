@@ -12,7 +12,7 @@ const Cards = ({item}) => {
   }
 
   return (
-    <div className="card w-96 bg-base-100 shadow-xl relative">
+    <div className="card w-96 mb-7 bg-base-100 shadow-xl relative">
       <div
         className={`heartStar rating gap-1 absolute right-2 top-2 p-4 bg-green
           ${isHeartFilled ? "text-rose-500" : "text-white"}`}
@@ -26,7 +26,9 @@ const Cards = ({item}) => {
         </figure>
       </Link>
       <div className="card-body">
-        <h2 className="card-title">{item.name}</h2>
+        <Link to={`/menu/${item._id}`}>
+          <h2 className="card-title">{item.name}</h2>
+        </Link>
         <p>Description of the item</p>
         <div className="card-actions justify-between items-center mt-2">
           <h5 className="font-semibold"><span className="text-sm text-red">$</span>{item.price}</h5>
