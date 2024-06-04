@@ -5,11 +5,11 @@ import "../App.css"
 
 const Main = () => {
   return (
-    <div>
+    <>
       <Navbar/>
       <Outlet/> {/* This is where the child routes will be rendered */}
-      <footer>Footer</footer>
-    </div>
+ 
+    </>
   )
 }
 
