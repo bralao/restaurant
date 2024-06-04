@@ -1,3 +1,6 @@
-tailwindcss
-googlefont Inter
-react router
+
+installations:
+  tailwindcss
+  googlefont Inter
+  react router
+  react-slick
