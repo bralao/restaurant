@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Cards from '../../components/Cards';
 import { FaFilter } from 'react-icons/fa';
 
@@ -6,11 +6,15 @@ const Menu = () => {
   const [menu, setMenu] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
-  // ^here, we are using useState to store the menu items and the filtered items. We are also using useState to store the selected category. This way, we can filter the menu items based on the selected category.
-  const [sortOption, setSortOption] = useState("default");
-  // ^here, we are using useState to store the sort option. This way, we can sort the menu items based on the selected sort option.
+  const [sortOption, setSortOption] = useState("default"); // we are using useState to store the sort option. This way, we can sort the menu items based on the selected sort option.
+  // ^here, we are using useState to store the menu items and the filtered items, and to store the selected category. This way, we can filter the menu items based on the selected category.
 
   //loading data
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
+
+  const buttonsRef = useRef(null);
+
   useEffect(() => {
     //fetching data from backend
     //**fetching from frontend 1st
@@ -36,12 +40,14 @@ const Menu = () => {
       : menu.filter(item => item.category === category); // if the category is "all", we return all the menu items, otherwise we filter the menu items based on the selected category
     setFilteredItems(filtered); // setting the filteredItems state with the filtered data
     setSelectedCategory(category); // setting the selected category
+    setCurrentPage(1); // resetting the current page to 1
   }
 
   //show all data
   const showAll = () => {
     setFilteredItems(menu);
     setSelectedCategory('all');
+    setCurrentPage(1);
   }
 
   //sorting based on A-Z, Z-A, Low-High price
@@ -66,6 +72,16 @@ const Menu = () => {
         break;
     }
     setFilteredItems(sortedItems);
+    setCurrentPage(1);
+  }
+
+  //pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage; // getting the index of the last item on the current page so we can slice the items array
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem); // getting the items for the current page
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber); // function to change the current page
+    buttonsRef.current.scrollIntoView({ behavior: 'smooth' }); // Scroll to the buttons section
   }
 
   return (
@@ -91,7 +107,7 @@ const Menu = () => {
       {/* menu shop */}
       <div className="section-container">
         {/* filtering and sorting */}
-        <div>
+        <div ref={buttonsRef}>
           <div className="flex flex-col md:flex-row flex-wrap md:justify-between items-center space-y-3 mb-8">
             {/* category btns filter */}
             <div className="flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap">
@@ -126,11 +142,25 @@ const Menu = () => {
         {/* products card */}
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 pt-4">
           {
-            filteredItems.map((item) => (
+            currentItems.map((item) => (
               <Cards key={item._id} item={item}/>
             ))
           }
         </div>
+      </div>
+
+      {/* pagination */}
+      <div className="flex justify-center my-8">
+        {
+          Array.from({length: Math.ceil(filteredItems.length / itemsPerPage)}).map((_, index) => (
+            <button
+            key={index + 1}
+            onClick={()=> paginate(index + 1)}
+            className={`mx-1 px-3 py-1 rounded-full ${currentPage === index + 1 ? "bg-green text-white" : "bg-gray-200"}`}>
+              {index + 1}
+            </button>
+          ))
+        }
       </div>
     </div>
   )
