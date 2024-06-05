@@ -8,7 +8,9 @@ const Main = () => {
   return (
     <>
       <Navbar/>
-      <Outlet/> {/* This is where the child routes will be rendered */}
+      <div className="min-h-screen">
+        <Outlet/> {/* This is where the child routes will be rendered */}
+      </div>
       <Footer/>
     </>
   )
