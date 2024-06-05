@@ -20,6 +20,11 @@ const Menu = () => {
 
         </div>
       </div>
+
+      {/* menu shop */}
+      <div className="section-container">
+
+      </div>
     </div>
   )
 }
