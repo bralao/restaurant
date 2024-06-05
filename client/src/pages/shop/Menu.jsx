@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Cards from '../../components/Cards';
 
 const Menu = () => {
   const [menu, setMenu] = useState([]);
@@ -90,7 +91,19 @@ const Menu = () => {
 
       {/* menu shop */}
       <div className="section-container">
+        {/* filtering and sorting */}
+        <div>
+          Filtering and sorting
+        </div>
 
+        {/* products card */}
+        <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+          {
+            filteredItems.map((item) => (
+              <Cards key={item._id} item={item}/>
+            ))
+          }
+        </div>
       </div>
     </div>
   )
