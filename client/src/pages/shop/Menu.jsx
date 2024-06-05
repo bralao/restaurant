@@ -47,7 +47,6 @@ const Menu = () => {
   const handleSortChange = (option) => {
     setSortOption(option);
     let sortedItems = [...filteredItems];
-
     //logic
     switch(option) {
       case "A-Z":
@@ -65,7 +64,6 @@ const Menu = () => {
       default:
         break;
     }
-
     setFilteredItems(sortedItems);
   }
 
@@ -93,11 +91,23 @@ const Menu = () => {
       <div className="section-container">
         {/* filtering and sorting */}
         <div>
-          Filtering and sorting
+          {/* btns */}
+          <div>
+            {/* all category btns */}
+            <div className="flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap">
+              <button onClick={showAll} className={selectedCategory === "all" ? "active" : ""}>All</button>
+              <button onClick={()=> filterItems("salad")} className={selectedCategory === "salad" ? "active" : ""}>Salad</button>
+              <button onClick={()=> filterItems("pizza")} className={selectedCategory === "pizza" ? "active" : ""}>Pizza</button>
+              <button onClick={()=> filterItems("soup")} className={selectedCategory === "soup" ? "active" : ""}>Soups</button>
+              <button onClick={()=> filterItems("dessert")} className={selectedCategory === "dessert" ? "active" : ""}>Desserts</button>
+              <button onClick={()=> filterItems("drinks")} className={selectedCategory === "drinks" ? "active" : ""}>Drinks</button>
+            </div>
+          </div>
+          {/* sorting */}
         </div>
 
         {/* products card */}
-        <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 pt-4">
           {
             filteredItems.map((item) => (
               <Cards key={item._id} item={item}/>
