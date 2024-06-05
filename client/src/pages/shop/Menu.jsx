@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Cards from '../../components/Cards';
+import { FaFilter } from 'react-icons/fa';
 
 const Menu = () => {
   const [menu, setMenu] = useState([]);
@@ -55,10 +56,10 @@ const Menu = () => {
       case "Z-A":
         sortedItems.sort((a, b) => b.name.localeCompare(a.name));
         break;
-      case "Low-High":
+      case "low-to-high":
         sortedItems.sort((a, b) => a.price - b.price);
         break;
-      case "High-Low":
+      case "high-to-low":
         sortedItems.sort((a, b) => b.price - a.price);
         break;
       default:
@@ -91,9 +92,8 @@ const Menu = () => {
       <div className="section-container">
         {/* filtering and sorting */}
         <div>
-          {/* btns */}
-          <div>
-            {/* all category btns */}
+          <div className="flex flex-col md:flex-row flex-wrap md:justify-between items-center space-y-3 mb-8">
+            {/* category btns filter */}
             <div className="flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap">
               <button onClick={showAll} className={selectedCategory === "all" ? "active" : ""}>All</button>
               <button onClick={()=> filterItems("salad")} className={selectedCategory === "salad" ? "active" : ""}>Salad</button>
@@ -102,8 +102,25 @@ const Menu = () => {
               <button onClick={()=> filterItems("dessert")} className={selectedCategory === "dessert" ? "active" : ""}>Desserts</button>
               <button onClick={()=> filterItems("drinks")} className={selectedCategory === "drinks" ? "active" : ""}>Drinks</button>
             </div>
+            {/* sorting filter*/}
+            <div className="flex justify-end mb-4 rounded-sm">
+              <div className="bg-black p-2">
+                <FaFilter className="h-4 w-4 text-white"/>
+              </div>
+              {/* sorting options */}
+              <select name="sort" id="sort"
+              onChange={(e) => handleSortChange(e.target.value)}
+              value={sortOption}
+              className="bg-black text-white px-2 py-1 rounded-sm"
+              >
+                <option value="default">Default</option>
+                <option value="A-Z">A-Z</option>
+                <option value="Z-A">Z-A</option>
+                <option value="low-to-high">Low to High</option>
+                <option value="high-to-low">High to Low</option>
+              </select>
+            </div>
           </div>
-          {/* sorting */}
         </div>
 
         {/* products card */}
