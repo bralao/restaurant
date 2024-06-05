@@ -42,6 +42,32 @@ const Menu = () => {
     setSelectedCategory('all');
   }
 
+  //sorting based on A-Z, Z-A, Low-High price
+  const handleSortChange = (option) => {
+    setSortOption(option);
+    let sortedItems = [...filteredItems];
+
+    //logic
+    switch(option) {
+      case "A-Z":
+        sortedItems.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "Z-A":
+        sortedItems.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case "Low-High":
+        sortedItems.sort((a, b) => a.price - b.price);
+        break;
+      case "High-Low":
+        sortedItems.sort((a, b) => b.price - a.price);
+        break;
+      default:
+        break;
+    }
+
+    setFilteredItems(sortedItems);
+  }
+
   return (
     <div>
       {/* menu banner */}
