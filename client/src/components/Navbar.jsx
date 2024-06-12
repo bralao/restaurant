@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import logo from '/logo.png' // no need to write the hole path because it is in the public folder
-import { FiPhoneCall } from "react-icons/fi";
+import { FaRegUser } from "react-icons/fa";
 
 
 const Navbar = () => {
@@ -91,9 +91,10 @@ const Navbar = () => {
             </div>
           </div>
           {/*btn */}
-          <a className="btn bg-green rounded-full px-6 text-white flex items-center gap-2">
-            <FiPhoneCall /> Contact
-          </a>
+          <button className="btn bg-green rounded-full px-6 text-white flex items-center gap-2">
+            <FaRegUser />
+            Login
+          </button>
         </div>
       </div>
     </header>
