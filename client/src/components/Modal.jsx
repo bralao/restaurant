@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaGoogle } from "react-icons/fa";
-import { FaFacebookF } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa";
+import { FaGoogle, FaFacebookF, FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 
 
@@ -88,7 +86,6 @@ const Modal = () => {
             <button className="btn btn-circle hover:bg-green hover:text-white">
               <FaGithub />
             </button>
-
           </div>
 
         </div>
