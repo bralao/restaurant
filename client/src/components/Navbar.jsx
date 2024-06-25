@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import logo from '/logo.png' // no need to write the hole path because it is in the public folder
 import { FaRegUser } from "react-icons/fa";
 import Modal from './Modal';
+import { AuthContext } from '../contexts/AuthProvider';
 
 
 const Navbar = () => {
   const [isSticky, setSticky] = useState(false);
+
+  const {user} = useContext(AuthContext)
+  console.log(user)
 
   //handle scroll functions
   useEffect( () => {
