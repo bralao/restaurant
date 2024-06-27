@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../contexts/AuthProvider'
 
 const Profile = ({ user }) => {
+  const { logOut } = useContext(AuthContext)
+
+  const handleLogout = () => {
+    logOut().then(() => {
+      // Sign-out successful.
+      alert("Logout successful")
+    }).catch((error) => {
+      // An error happened.
+      console.error("Logout error", error);
+    });
+  }
+
   return (
     <div>
       <div className="drawer drawer-end z-50">
@@ -14,7 +27,6 @@ const Profile = ({ user }) => {
                 <img alt="Tailwind CSS Navbar component" src={user.photoURL}/>
                 :
                 <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              
               }
             </div>
           </label>
@@ -26,7 +38,7 @@ const Profile = ({ user }) => {
             <li><a>Profile</a></li>
             <li><a>Order</a></li>
             <li><a>Settings</a></li>
-            <li><a>Logout</a></li>
+            <li><a onClick={handleLogout}>Logout</a></li>
           </ul>
         </div>
       </div>
