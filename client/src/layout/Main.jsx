@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import "../App.css"
 import Footer from '../components/Footer'
 import { AuthContext } from '../contexts/AuthProvider'
+import LoadingSpinner from '../components/LoadingSpinner'
 
 const Main = () => {
 
@@ -15,7 +16,7 @@ const Main = () => {
       {
         loading
         ?
-        <p>Loading....</p>
+        <LoadingSpinner/>
         :
         <div>
         <Navbar/>
