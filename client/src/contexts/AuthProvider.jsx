@@ -6,7 +6,6 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
-
 const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -28,7 +27,7 @@ const AuthProvider = ({children}) => {
 
   // logout
   const logOut = () => {
-    signOut(auth)
+    return signOut(auth);
   }
 
   // update profile
@@ -37,24 +36,24 @@ const AuthProvider = ({children}) => {
         displayName: name, photoURL: photoURL
       });
   }
+
   // check signed-in user
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser)
-        setLoading(false)
-      } else {
-        // User is signed out
-        // ...
-      }
+      setUser(currentUser);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000); // 2000 milliseconds = 2 seconds
     });
+
     return () => {
-      return unsubscribe()
+      unsubscribe();
     }
   },[])
 
   const authInfo = {
     user,
+    loading, // Add loading to the context value
     createUser,
     signUpWithGmail,
     login,
