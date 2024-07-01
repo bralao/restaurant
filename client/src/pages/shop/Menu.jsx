@@ -20,7 +20,7 @@ const Menu = () => {
     //**fetching from frontend 1st
     const fetchData = async () => {
       try {
-        const response = await fetch("/menu.json");
+        const response = await fetch("http://localhost:6001/menu");
         const data = await response.json(); // converting the response to json
         /* console.log(data); */
         setMenu(data); // setting the menu state with the fetched data
